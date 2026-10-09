@@ -1,0 +1,12 @@
+[Unit]
+Description=StacjaPrudnik Redis recent measurements
+
+[Service]
+Environment=LC_ALL=C.UTF-8
+ExecStart=%h/.local/share/stacja-infra/bin/redis-server --bind 127.0.0.1 --port 6380 --protected-mode yes --dir %h/.local/share/stacja-redis --appendonly yes --appendfsync everysec --maxmemory 256mb --maxmemory-policy noeviction
+Restart=on-failure
+RestartSec=3
+UMask=0077
+
+[Install]
+WantedBy=default.target

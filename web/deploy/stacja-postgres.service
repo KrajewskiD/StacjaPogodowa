@@ -1,0 +1,14 @@
+[Unit]
+Description=StacjaPrudnik PostgreSQL
+
+[Service]
+Environment=LD_LIBRARY_PATH=%h/.local/share/stacja-infra/usr/lib
+ExecStart=%h/.local/share/stacja-infra/usr/bin/postgres -D %h/.local/share/stacja-postgres
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=60
+KillSignal=SIGINT
+UMask=0077
+
+[Install]
+WantedBy=default.target

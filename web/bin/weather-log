@@ -1,0 +1,74 @@
+#!/usr/bin/env ruby
+ENV["RAILS_ENV"] ||= "production"
+require_relative "../config/environment"
+require "optparse"
+
+options = { last: 20, follow: false, json: false, diagnostics: false }
+parser = OptionParser.new do |p|
+  p.banner = "Użycie: bin/weather-log [--last 20] [--follow] [--json] [--diagnostics]"
+  p.on("--last N", Integer, "Ostatnie N pomiarów (0–10000)") { |n| options[:last] = n }
+  p.on("--follow", "Ciągły podgląd nowych pomiarów") { options[:follow] = true }
+  p.on("--json", "Pełny zapis pomiaru w JSONL") { options[:json] = true }
+  p.on("--diagnostics", "Dane odbiornika i status Redis") { options[:diagnostics] = true }
+  p.on("-h", "--help") { puts p; exit }
+end
+begin
+  parser.parse!
+  raise OptionParser::InvalidArgument, "--last: 0–10000" unless (0..10000).cover?(options[:last])
+rescue OptionParser::ParseError => e
+  warn e.message
+  warn parser
+  exit 2
+end
+
+$stdout.sync = true
+scope = Measurement.where(sensor_id: WeatherController::SENSOR_ID)
+show = lambda do |reading|
+  if options[:json]
+    puts JSON.generate(reading.attributes)
+  else
+    units = { "temperature_c" => "°C", "humidity_pct" => "%", "wind_avg_ms" => "m/s", "wind_gust_ms" => "m/s", "wind_direction_deg" => "°", "rain_total_mm" => "mm", "uv_index" => "", "light_klx" => "klx" }
+    values = units.map { |key, unit| "#{key}=#{reading.payload.fetch(key, '—')}#{unit}" }
+    values << "device=#{reading.device_id} seq=#{reading.payload['seq']} uptime_ms=#{reading.payload['uptime_ms']} RSSI=#{reading.payload['rssi_dbm']} IP=#{reading.source_ip}" if options[:diagnostics]
+    puts "#{reading.received_at.in_time_zone.iso8601} ##{reading.id} | #{values.join(' | ')}"
+  end
+end
+
+begin
+  # Tail jest migawką; w trybie follow połączenie jest regularnie zwalniane.
+  cursor = scope.maximum(:id) || 0
+  scope.where("id <= ?", cursor).order(id: :desc).limit(options[:last]).to_a.reverse_each(&show)
+  exit unless options[:follow]
+  warn "Podgląd zapisanych surowych pomiarów PostgreSQL; Ctrl+C kończy."
+  last_notice = 0
+  loop do
+    ActiveRecord::Base.uncached do
+      scope.where("id > ?", cursor).order(:id).limit(1000).each do |reading|
+        show.call(reading)
+        cursor = reading.id
+      end
+      if Process.clock_gettime(Process::CLOCK_MONOTONIC) - last_notice >= 30
+        last = scope.order(id: :desc).first
+        age = last ? (Time.current - last.received_at).round : nil
+        warn(last ? "Ostatni pomiar: #{age} s temu" : "Oczekiwanie na pierwszy pomiar") if age.nil? || age >= 60
+        if options[:diagnostics]
+          client = RecentMeasurements.redis
+          begin
+            warn "Redis=#{client.ping} gotowy=#{client.exists?("#{RecentMeasurements::PREFIX}:ready")} kolejka=#{MeasurementDelivery.count}"
+          rescue Redis::BaseError => e
+            warn "Redis niedostępny (#{e.class}); logger korzysta z PostgreSQL"
+          ensure
+            client.close
+          end
+        end
+        last_notice = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      end
+    end
+    sleep 1
+  end
+rescue Interrupt, Errno::EPIPE
+  exit 0
+rescue ActiveRecord::ActiveRecordError => e
+  warn "Błąd PostgreSQL: #{e.message}"
+  exit 1
+end

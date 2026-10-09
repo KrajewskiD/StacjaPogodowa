@@ -1,0 +1,77 @@
+<div class="shell">
+  <aside class="sidebar">
+    <%= render "shared/brand" %>
+    <div class="sidebar-label">TWOJA STACJA POGODOWA</div>
+    <nav class="app-nav" aria-label="Nawigacja">
+      <a href="/"><%= render "shared/icon", name: "temperature" %> Pogoda na żywo</a>
+      <a href="/history"><%= render "shared/icon", name: "chart" %> Historia i wykresy</a>
+      <a href="/alerts"><%= render "shared/icon", name: "alert" %> Alerty pogodowe</a>
+    </nav>
+    <div class="station-box">
+      <span class="eyebrow">ŹRÓDŁO POMIARÓW</span>
+      <strong>GARNI 2055 Arcus</strong>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <div><h1>Pogoda na żywo<span>.</span></h1><p id="today">Aktualne warunki z Twojej stacji</p></div>
+      <div class="live-badge" id="connection" role="status"><span></span> Łączenie…</div>
+    </header>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <nav id="day-picker" class="day-picker page-live page-history" aria-label="Wybierz dzień pomiarów"></nav>
+    <dialog id="date-dialog" aria-labelledby="date-title">
+      <form id="date-form">
+        <div class="section-heading"><h2 id="date-title">Wybierz dzień z historii</h2><button type="button" id="date-close" aria-label="Zamknij kalendarz">✕</button></div>
+        <label for="history-date">Data pomiarów</label>
+        <input type="date" id="history-date" required>
+        <p id="date-range"></p>
+        <button type="submit" class="button">Pokaż dzień</button>
+      </form>
+    </dialog>
+    <p id="day-status" class="page-live" role="status"></p>
+    <div class="page-live smoothing-explanation"><button id="smoothing-help" data-help="smoothing" aria-label="Pomoc: wygładzanie pomiarów">? <span>Sposób obliczania wskazań</span></button></div>
+
+    <section class="overview page-live" aria-label="Aktualne pomiary">
+      <article class="temperature-card">
+        <div class="card-top"><%= render "shared/icon", name: "temperature" %><span>Temperatura zewnętrzna</span><button class="help-button" data-help="feels" aria-label="Pomoc: temperatura odczuwalna">?</button></div>
+        <div class="big-value"><span data-value="temperature_c">—</span><span class="big-unit">°C</span></div>
+        <p class="hero-feels">Odczuwalna <strong><span data-derived="feels_like_c">—</span> °C</strong></p>
+        <p id="feels-method" class="hero-method">Poza zakresem obliczeń</p>
+        <div class="temperature-bottom"><span id="temperature-summary" hidden></span><span id="updated">Oczekiwanie na dane</span></div>
+      </article>
+      <div class="compact-metrics">
+        <article class="metric-card"><div class="metric-heading"><%= render "shared/icon", name: "drop" %><h2>Wilgotność</h2></div><div class="metric-value"><span data-value="humidity_pct">—</span><small>%</small></div><p>Wilgotność względna</p></article>
+        <article class="metric-card"><div class="metric-heading"><%= render "shared/icon", name: "wind" %><h2>Wiatr</h2></div><div class="metric-value"><span data-value="wind_avg_ms">—</span><small>m/s</small></div><p>Porywy <b data-value="wind_gust_ms">—</b> m/s · <span data-derived="beaufort">—</span> Bft</p><div class="wind-direction"><span id="compass-needle"><%= render "shared/icon", name: "arrow" %></span><span id="wind-text">—</span><span>· <span data-derived="wind_kmh">—</span> km/h</span></div></article>
+        <article class="metric-card rain-card"><div class="metric-heading"><%= render "shared/icon", name: "rain" %><h2>Opady w dniu</h2></div><div class="metric-value"><span id="day-rain">—</span><small>mm</small></div><p id="day-rain-status">Suma przyrostów</p></article>
+      </div>
+    </section>
+
+    <section class="conditions page-live" aria-label="Pozostałe warunki">
+      <article><div class="metric-heading"><%= render "shared/icon", name: "uv" %><h2 id="uv-title">Indeks UV</h2></div><strong data-value="uv_index">—</strong><p id="uv-level">—</p></article>
+      <article><div class="metric-heading"><%= render "shared/icon", name: "light" %><h2>Natężenie światła</h2></div><strong><span data-value="light_klx">—</span> <small>klx</small></strong><p id="light-description">Światło w miejscu pomiaru</p></article>
+      <article><div class="metric-heading"><%= render "shared/icon", name: "dew" %><h2>Punkt rosy</h2></div><strong><span data-derived="dew_point_c">—</span> <small>°C</small></strong><p>Z temperatury i wilgotności</p></article>
+    </section>
+    <section class="feature-card page-live"><div class="section-heading"><h2>Temperatura</h2><button class="help-button" data-help="stats" aria-label="Pomoc: średnie temperatury">?</button></div><div id="temperature-periods" class="feature-grid"></div></section>
+    <section class="feature-card page-live"><div class="section-heading"><h2>Opady</h2><button class="help-button" data-help="rain" aria-label="Pomoc: opady">?</button></div><div id="rain-summary" class="feature-grid"></div><p id="rain-rate"></p></section>
+    <section class="feature-card page-live"><div class="section-heading"><h2>Słońce i Księżyc</h2><button class="help-button" data-help="astronomy" aria-label="Pomoc: astronomia">?</button></div><div id="astronomy"></div></section>
+    <section class="feature-card page-live"><div class="section-heading"><h2 id="stats-title">Dzisiaj: minima, maksima i średnie</h2><button class="help-button" data-help="stats" aria-label="Pomoc: statystyki">?</button></div><div id="daily-stats" class="table-wrap"></div><div id="trends"></div></section>
+
+    <section class="chart-card page-history">
+      <div class="section-heading"><div><div class="eyebrow">JAK ZMIENIA SIĘ POGODA</div><h2 id="chart-title">Temperatura w czasie</h2></div><div class="chart-controls"><label>Pomiar<select id="chart-metric"><option value="temperature_c">Temperatura (°C)</option><option value="humidity_pct">Wilgotność (%)</option><option value="wind_avg_ms">Wiatr średni (m/s)</option><option value="wind_gust_ms">Porywy (m/s)</option><option value="rain_total_mm">Licznik opadów (mm)</option></select></label><label>Okres<select id="range"><option value="1">1 godzina</option><option value="6">6 godzin</option><option value="24">24 godziny</option><option value="168">7 dni</option></select></label><a id="csv-export" class="button" href="/export.csv">CSV ↓</a></div></div>
+      <div class="chart-summary"><span class="chart-legend"></span> <span id="chart-label">Temperatura zewnętrzna</span> <span id="chart-range"></span></div>
+      <div id="chart-empty" class="empty">Wykres pojawi się po odebraniu pierwszych pomiarów.</div>
+      <svg id="chart" viewBox="0 0 900 200" role="img" aria-label="Wykres temperatury z ostatniej godziny" hidden></svg>
+      <div class="chart-times"><span id="chart-start">—</span><span id="chart-end">—</span></div>
+      <p class="muted">Dłuższe zakresy pokazują średnie w przedziałach czasu; licznik opadów — ostatnią wartość. Przerwy ponad 2 minuty przerywają linię.</p>
+    </section>
+
+    <section class="history-card page-history">
+      <div class="section-heading"><h2>Ostatnie pomiary</h2><span id="total" class="muted">0 zapisanych pomiarów</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Czas odbioru</th><th>Temperatura</th><th>Wilgotność</th><th>Wiatr</th></tr></thead><tbody id="history"><tr><td colspan="4">Oczekiwanie na pomiary…</td></tr></tbody></table></div>
+    </section>
+    <section class="feature-card page-alerts"><h2>Komunikaty o warunkach na stacji</h2><ul id="alerts"></ul><p>Lokalne komunikaty na podstawie potwierdzonych pomiarów. Nie są oficjalnymi ostrzeżeniami meteorologicznymi. Poryw wiatru pozostaje widoczny do potwierdzenia 10 minut spokojniejszych warunków. Przy utracie danych wyświetlany jest czas ostatniego potwierdzenia.</p></section>
+    <footer><span>Odświeżanie co 5 s</span></footer>
+    <dialog id="help-dialog" aria-labelledby="help-title"><div class="section-heading"><h2 id="help-title"></h2><button id="help-close" aria-label="Zamknij pomoc">✕</button></div><div id="help-content"></div></dialog>
+  </main>
+</div>

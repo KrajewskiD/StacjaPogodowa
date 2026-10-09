@@ -1,0 +1,15 @@
+[Unit]
+Description=StacjaPogodowa - odbiornik UDP do PostgreSQL
+After=stacja-web.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/krajewski/Developer/ESP32/StacjaPogodowa/web
+Environment=RAILS_ENV=production
+ExecStart=/usr/bin/bundle exec ruby bin/rails runner script/receive.rb
+Restart=on-failure
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=default.target

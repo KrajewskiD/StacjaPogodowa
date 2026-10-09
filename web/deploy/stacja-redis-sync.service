@@ -1,0 +1,15 @@
+[Unit]
+Description=StacjaPrudnik PostgreSQL to Redis outbox
+After=stacja-postgres.service stacja-redis.service
+Wants=stacja-postgres.service stacja-redis.service
+
+[Service]
+WorkingDirectory=/home/krajewski/Developer/ESP32/StacjaPogodowa/web
+Environment=RAILS_ENV=production
+ExecStart=/usr/bin/bundle exec ruby bin/rails runner script/redis_sync.rb
+Restart=on-failure
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=default.target

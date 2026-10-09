@@ -1,0 +1,16 @@
+[Unit]
+Description=StacjaPogodowa - Ruby on Rails (Puma)
+After=stacja-postgres.service
+Wants=stacja-postgres.service stacja-redis.service stacja-redis-sync.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/krajewski/Developer/ESP32/StacjaPogodowa/web
+Environment=RAILS_ENV=production
+ExecStart=/usr/bin/bundle exec puma -C config/puma.rb
+Restart=on-failure
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=default.target

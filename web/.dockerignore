@@ -1,0 +1,17 @@
+# Kontenerowy build: pomijamy wszystko poza kodem źródłowym aplikacji.
+.git
+.gitignore
+.env
+.env.*
+log/
+tmp/
+storage/
+vendor/bundle
+config/secret.key
+.dockerignore
+Dockerfile
+docker-compose.yml
+DEPLOY.md
+nginx/
+certbot/
+*.sqlite3

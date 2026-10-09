@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  host: <%= ENV.fetch("PGHOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("PGPORT", "5433") %>
+  username: <%= ENV.fetch("PGUSER", "stacja") %>
+  password: <%= ENV["PGPASSWORD"] || (File.read(File.expand_path("~/.config/stacja/pg_password")).strip if File.exist?(File.expand_path("~/.config/stacja/pg_password"))) %>
+  pool: 5
+  connect_timeout: 5
+
+development:
+  <<: *default
+  database: stacja_development
+
+test:
+  <<: *default
+  database: stacja_test
+
+production:
+  <<: *default
+  database: stacja_production
+  url: <%= ENV["DATABASE_URL"] %>

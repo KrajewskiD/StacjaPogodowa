@@ -1,0 +1,34 @@
+# Konfiguracja administratora serwera; nie jest udostępniana przez HTTP.
+# Po zmianie zrestartuj stacja-web i stacja-udp.
+shared:
+  latitude: 51.07
+  longitude: 17.02
+  temperature_low: 0.0
+  temperature_high: 30.0
+  temperature_low_clear: 1.0
+  temperature_high_clear: 29.0
+  cold_confirm_seconds: 120
+  hot_confirm_seconds: 300
+  gust_high: 15.0
+  gust_clear: 12.0
+  gust_clear_seconds: 600
+  uv_high: 6.0
+  uv_clear: 5.0
+  uv_confirm_seconds: 120
+  uv_clear_seconds: 300
+  missing_seconds: 180
+  # Dłuższa luka przerywa potwierdzanie warunku; aktywne zdarzenie pozostaje.
+  confirmation_gap_seconds: 60
+  battery_confirm_seconds: 30
+  # Zaufane urządzenia nadające dane. Puste listy (tylko testy lokalne) =
+  # przyjmuj wszystko; w produkcji podaj znane identyfikatory.
+  sensors:
+    - "0000DE3E"
+  devices:
+    - "aff734"
+
+test:
+  latitude:
+  longitude:
+  sensors: []
+  devices: []

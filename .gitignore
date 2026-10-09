@@ -1,0 +1,16 @@
+# Build i środowisko PlatformIO
+.pio/
+__pycache__/
+*.pyc
+.vscode/
+
+# Sekrety firmware — NIE commituj. Skopiuj z include/secrets.h.example.
+include/secrets.h
+
+# Ewentualne lokalne sekrety całego repo
+.env
+.env.*
+!.env.example
+
+# artefakty binarek
+*.bin

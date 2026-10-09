@@ -1,0 +1,150 @@
+:root {
+  color-scheme: dark;
+  --paper: #090d12;
+  --surface: #151e29;
+  --sidebar: #101720;
+  --ink: #93c5fd;
+  --muted: #7296bf;
+  --line: #26364a;
+  --accent: #3b82f6;
+  --green: var(--accent);
+  --chart-line: #60a5fa;
+  --chart-fill: #182e47;
+}
+
+::selection {
+  background: #245ca2;
+  color: #bfdbfe;
+}
+
+.sidebar {
+  background: var(--sidebar);
+  color: var(--ink);
+}
+
+.brand-icon,
+.brand-dot,
+.nav-active span,
+.weather-symbol,
+.secondary-icon {
+  color: var(--chart-line);
+}
+
+.sidebar-label,
+.station-box .eyebrow,
+.station-box p,
+.station-box label,
+.sidebar-bottom,
+.sidebar-bottom small,
+.metric-card h2,
+.secondary h2,
+.pill {
+  color: var(--muted);
+}
+
+.nav-active {
+  background: #172b45;
+  border-color: #2c5080;
+  box-shadow: inset 3px 0 var(--accent);
+}
+
+.station-box {
+  border-color: var(--line);
+}
+
+select {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+select:hover {
+  border-color: var(--accent);
+}
+
+.tiny-dot,
+.live-badge span {
+  background: var(--accent);
+  box-shadow: 0 0 9px #3b82f63d;
+}
+
+.live-badge {
+  background: #14283f;
+  color: var(--ink);
+  border-color: #29486b;
+}
+
+.live-badge.stale {
+  background: var(--sidebar);
+  color: var(--muted);
+  border-color: #48617e;
+  border-style: dashed;
+}
+
+.live-badge.stale span {
+  background: transparent;
+  border: 1px solid var(--muted);
+  box-shadow: none;
+}
+
+.notice {
+  background: #131f2e;
+  color: var(--ink);
+  border-color: #304a6b;
+  border-left: 3px solid var(--accent);
+}
+
+.temperature-card {
+  background: linear-gradient(125deg, #142b48, #102036);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px #29466b;
+}
+
+.temperature-card::after {
+  border-color: #60a5fa26;
+  box-shadow: 0 0 0 28px #60a5fa08, 0 0 0 58px #60a5fa06;
+}
+
+.card-top,
+.big-unit {
+  color: var(--ink);
+}
+
+.temperature-bottom {
+  color: #83a9d4;
+  border-color: #345071;
+}
+
+.metric-card,
+.secondary article,
+.chart-card,
+.history-card {
+  background: var(--surface);
+  box-shadow: 0 6px 22px #00000014;
+}
+
+.metric-icon {
+  background: #1b304b;
+  color: var(--chart-line);
+}
+
+.pill,
+th {
+  background: var(--sidebar);
+}
+
+.chart-legend {
+  background: var(--chart-line);
+}
+
+td {
+  border-color: var(--line);
+}
+
+tbody tr:hover {
+  background: #1a293c;
+}
+
+:focus-visible {
+  outline-color: var(--chart-line);
+}

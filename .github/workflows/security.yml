@@ -1,0 +1,46 @@
+name: security
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1" # cotygodniowo (dla spóźnionych aktualizacji advisory)
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  secret-scan:
+    name: Wykrywanie sekretów (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Skan gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ruby-security:
+    name: Brakeman + bundler-audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Zainstaluj zależności (wszystkie grupy)
+        run: bundle install
+
+      - name: Brakeman (statyczny skan Rails)
+        run: bundle exec brakeman -A --no-pager
+
+      - name: bundler-audit (luki w gemach)
+        run: bundle exec bundler-audit check --update

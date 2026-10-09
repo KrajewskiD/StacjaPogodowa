@@ -1,0 +1,11 @@
+/.bundle/
+/vendor/bundle/
+/log/*
+/tmp/*
+/storage/*
+/config/secret.key
+
+# Sekrety serwera — NIE commituj. Wzór: .env.example
+.env
+.env.*
+!.env.example

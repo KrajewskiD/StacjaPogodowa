@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Zależności Ruby (Rails i gemy) w katalogu web/.
+  - package-ecosystem: "bundler"
+    directory: "/web"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Zależności GitHub Actions (sami używamy akcji).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -1,0 +1,133 @@
+/* Panel główny: wspólna hierarchia, odstępy i układ kart. */
+.line-icon { width:22px; height:22px; flex:0 0 22px; display:inline-block; vertical-align:middle; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; color:#83add7; }
+.smoothing-explanation { margin:-14px 0 18px; }
+#smoothing-help { background:transparent; border:0; color:#91b1d3; padding:8px 0; cursor:pointer; font:inherit; font-size:12px; }
+#smoothing-help span { margin-left:6px; }
+.view-live .metric-state { font-size:10px; color:#91b1d3; text-align:center; grid-column:1/-1; }
+.app-nav a { display:flex; align-items:center; gap:9px; }
+.app-nav .line-icon { width:18px; height:18px; flex-basis:18px; }
+.card-top { display:flex; align-items:center; justify-content:flex-start; gap:10px; }
+.view-live main { max-width:1520px; padding:36px clamp(20px,3vw,48px); }
+.view-live header { margin-bottom:22px; }
+.view-live h1 { font-size:clamp(26px,3vw,36px); letter-spacing:-1px; }
+.view-live #today { color:#8fa8c3; }
+.view-live .day-picker { gap:5px; width:fit-content; padding:5px; border:1px solid #253246; border-radius:13px; background:#0d141e; }
+.view-live .day-picker button { border:0; background:transparent; padding:10px 16px; border-radius:9px; font-size:12px; }
+.view-live .day-picker button[aria-pressed="true"] { background:#203b5c; color:#d8eaff; }
+.view-live #day-status { font-size:12px; line-height:1.6; color:#8fa8c3; margin:12px 0 24px; }
+.view-live .overview { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
+.view-live .temperature-card, .view-live .metric-card, .view-live .feature-card,
+.view-live .conditions { background:#111b28; border:1px solid #26354a; border-radius:18px; box-shadow:0 8px 24px #00000012; }
+.view-live .temperature-card, .view-live .metric-card { position:relative; min-width:0; padding:24px 20px; }
+.view-live .temperature-card { background:linear-gradient(145deg,#1c3552,#121e2e 85%); overflow:hidden; }
+.view-live .temperature-card::before, .view-live .temperature-card::after { display:none; }
+.view-live .card-top { font-size:12px; color:#b4cee9; letter-spacing:.3px; padding-right:22px; }
+.view-live .big-value { font-size:clamp(58px,5vw,80px); line-height:1.2; margin:28px 0 12px; letter-spacing:-3px; }
+.view-live .big-unit { font-size:26px; letter-spacing:0; color:#91b1d3; }
+.view-live .hero-feels { text-align:center; font-size:13px; color:#9db6d2; margin:0; }
+.view-live .hero-feels strong { color:#d4e8ff; font-weight:500; margin-left:6px; }
+.view-live .hero-method { text-align:center; font-size:10px; color:#8fa8c3; min-height:14px; }
+.view-live .temperature-bottom { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 16px; font-size:10px; margin-top:24px; padding-top:14px; }
+.view-live .metric-heading { gap:8px; min-height:32px; }
+.view-live .metric-heading h2 { font-size:12px; font-weight:550; color:#b9cfe7; margin:0; line-height:1.5; }
+.view-live .metric-icon { width:28px; height:28px; flex-basis:28px; border-radius:8px; font-size:17px; background:#1b2c41; color:#7db7f4; }
+.view-live .metric-value { margin:34px 0 12px; font-size:40px; line-height:1.2; font-weight:500; color:#c4e0ff; }
+.view-live .metric-value small { font-size:14px; letter-spacing:0; }
+.view-live .metric-card > p { font-size:11px; line-height:1.7; color:#90a8c2; }
+.view-live .rain-card .metric-heading { padding-right:20px; }
+.view-live .help-button { position:absolute; top:10px; right:10px; }
+.view-live .wind-direction { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; color:#90a8c2; font-size:10px; }
+.view-live .wind-direction .compass { width:38px; height:38px; margin:0; flex-shrink:0; }
+.view-live .wind-direction .compass b { font-size:23px; }
+.view-live .wind-direction .compass span { font-size:8px; }
+.view-live .conditions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0 0 28px; padding:20px 0; }
+.view-live .conditions article { min-width:0; padding:0 24px; text-align:center; }
+.view-live .conditions article + article { border-left:1px solid #26354a; }
+.view-live .conditions strong { display:block; font-size:28px; font-weight:500; margin:16px 0 8px; color:#c4e0ff; font-variant-numeric:tabular-nums; }
+.view-live .conditions small { font-size:14px; color:#8fa8c3; font-weight:400; }
+.view-live .conditions p { font-size:11px; color:#90a8c2; margin:0; }
+.view-live main > .feature-card { padding:24px; margin:0 0 20px; }
+.view-live .feature-card h2 { font-size:15px; font-weight:550; color:#c4d8ee; }
+.view-live #temperature-periods { grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.view-live #temperature-periods article, .view-live #rain-summary > div { border-radius:12px; background:#0e1723; padding:18px 12px; min-width:0; }
+.view-live #temperature-periods h3, .view-live #rain-summary h3 { font-size:12px; font-weight:450; line-height:1.5; color:#9eb8d5; margin:0 0 16px; }
+.view-live #temperature-periods strong, .view-live #rain-summary strong { font-size:26px; color:#c4e0ff; }
+.view-live #temperature-periods p { font-size:10px; margin:6px 0 0; }
+.view-live #temperature-periods [data-period="night"] { grid-column:1/-1; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 18px; padding:12px; background:transparent; border-top:1px solid #26354a; border-radius:0; }
+.view-live #temperature-periods [data-period="night"] > * { margin:0; }
+.view-live #temperature-periods [data-period="night"] strong { font-size:17px; }
+.view-live #rain-summary { grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.view-live #rain-summary p { font-size:10px; }
+.view-live .data-status, .view-live #day-rain-status { display:table; margin:8px auto; padding:3px 7px; border-radius:6px; background:#1b2a3d; color:#a6bdd5; font-size:10px; line-height:1.5; }
+.view-live .astronomy-day { padding:20px; border-radius:12px; background:#0e1723; }
+.view-live #sun-countdown { text-align:center; background:#182b42; border-radius:10px; padding:16px; color:#afd4ff; }
+.view-live #daily-stats th, .view-live #daily-stats td { padding:14px 12px; }
+.view-live #trends { display:flex; flex-wrap:wrap; gap:8px 24px; }
+@media(min-width:851px) and (max-width:1200px) {
+  .view-live .overview { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .view-live .temperature-card { grid-column:1/-1; }
+  .view-live .big-value { margin-top:16px; }
+}
+@media(max-width:850px) {
+  .view-live main { padding:24px 20px; }
+  .view-live .overview { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .view-live .temperature-card { grid-column:1/-1; }
+  .view-live .rain-card { grid-column:1/-1; }
+  .view-live .metric-value { margin-top:24px; }
+  .view-live #temperature-periods { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .view-live #rain-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .view-live .conditions article { padding:0 12px; }
+}
+@media(max-width:500px) {
+  .view-live main { padding:20px 16px; }
+  .view-live header { align-items:flex-start; flex-wrap:wrap; gap:8px; }
+  .view-live .temperature-card, .view-live .metric-card { padding:20px 16px; }
+  .view-live .conditions { grid-template-columns:1fr; padding:0 18px; }
+  .view-live .conditions article { padding:18px 0; display:grid; grid-template-columns:1fr auto; align-items:center; gap:6px 12px; }
+  .view-live .conditions article + article { border-left:0; border-top:1px solid #26354a; }
+  .view-live .conditions strong { margin:0; font-size:24px; }
+  .view-live .conditions p { grid-column:1/-1; text-align:left; padding-left:36px; }
+  .view-live main > .feature-card { padding:20px 16px; }
+  .view-live #temperature-periods strong { font-size:22px; }
+  .view-live #sun-countdown { font-size:12px; line-height:1.8; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  .view-live .metric-card { transition:border-color .2s; }
+  .view-live .metric-card:hover { border-color:#41618a; }
+}
+.view-live .overview { grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); align-items:stretch; }
+.view-live .overview .temperature-card { grid-column:auto; display:flex; flex-direction:column; justify-content:center; }
+.view-live .compact-metrics { min-width:0; background:#111b28; border:1px solid #26354a; border-radius:18px; padding:0 20px; }
+.view-live .compact-metrics .metric-card { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:3px 16px; padding:16px 28px 16px 0; border:0; border-radius:0; box-shadow:none; background:transparent; }
+.view-live .compact-metrics .metric-card + .metric-card { border-top:1px solid #26354a; }
+.view-live .compact-metrics .metric-value { font-size:30px; margin:0; text-align:right; white-space:nowrap; }
+.view-live .compact-metrics .metric-heading { padding:0; }
+.view-live .compact-metrics .metric-card > p { grid-column:1/-1; text-align:right; margin:0; font-size:10px; }
+.view-live .compact-metrics #day-rain-status { justify-self:stretch; margin:0; padding:0; background:transparent; text-align:center; }
+.view-live .data-status { width:fit-content; max-width:100%; margin:8px auto; text-align:center; font-family:inherit; border:1px solid transparent; }
+.view-live button.data-status { cursor:pointer; padding:6px 10px; min-height:30px; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:3px; }
+.view-live button.data-status:hover { background:#263d58; color:#d1e7ff; border-color:#52779f; }
+.view-live #temperature-periods .data-status, .view-live #rain-summary .data-status { margin-left:auto; margin-right:auto; }
+.view-live #temperature-periods [data-period="night"] .data-status { margin:0; }
+.view-live .compact-metrics .wind-direction { grid-column:1/-1; justify-content:flex-end; flex-wrap:wrap; gap:5px; margin:1px 0 0; }
+.view-live #compass-needle { display:inline-flex; width:16px; height:16px; }
+.view-live #compass-needle .line-icon { width:16px; height:16px; flex-basis:16px; }
+.view-live .compact-metrics .metric-heading .help-button { position:static; flex:0 0 28px; width:28px; height:36px; margin-left:0; }
+.view-live .temperature-card .card-top { padding-right:0; }
+.view-live .temperature-card .card-top .help-button { position:static; margin-left:auto; margin-right:-8px; }
+.view-live main > .feature-card .section-heading:has(.help-button) { align-items:center; }
+.view-live main > .feature-card .section-heading:has(.help-button) h2 { margin:0; }
+.view-live main > .feature-card .section-heading .help-button { top:24px; right:14px; }
+@media(max-width:500px) {
+  .view-live main > .feature-card .section-heading .help-button { top:20px; right:6px; }
+}
+@media(max-width:850px) {
+  .view-live .overview { grid-template-columns:1fr; }
+  .view-live .compact-metrics .rain-card { grid-column:auto; }
+}
+@media(max-width:380px) {
+  .view-live .compact-metrics { padding:0 14px; }
+  .view-live .compact-metrics .metric-card { column-gap:8px; padding-right:22px; }
+  .view-live .compact-metrics .metric-value { font-size:26px; }
+  .view-live .compact-metrics .metric-heading { gap:6px; }
+}

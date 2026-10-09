@@ -1,0 +1,23 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Missing Encryption",
+      "warning_code": 109,
+      "fingerprint": "6a26086cd2400fbbfb831b2f8d7291e320bcc2b36984d2abc359e41b3b63212b",
+      "check_name": "ForceSSL",
+      "message": "The application does not force use of HTTPS: `config.force_ssl` is not enabled",
+      "file": "config/environments/production.rb",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/missing_encryption/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [311],
+      "note": "TLS kończy się na reverse proxy (nginx/Apache), które ustawia HSTS i przekierowanie do HTTPS. Włączenie config.force_ssl w Rails byłoby redundatne i łamało lokalny dostęp HTTP przez 127.0.0.1. Sekrety i wymiana danych przechodzą wyłącznie przez HTTPS na brzegu sieci."
+    }
+  ],
+  "updated": "2026-10-09T18:00:00+02:00",
+  "brakeman_version": "8.1.0"
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=StacjaPogodowa - Apache HTTP na porcie 8080
+After=stacja-web.service
+Wants=stacja-web.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/krajewski/Developer/ESP32/StacjaPogodowa/web
+ExecStart=/usr/bin/httpd -f /home/krajewski/Developer/ESP32/StacjaPogodowa/web/config/apache.conf -DFOREGROUND
+ExecReload=/usr/bin/httpd -f /home/krajewski/Developer/ESP32/StacjaPogodowa/web/config/apache.conf -k graceful
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

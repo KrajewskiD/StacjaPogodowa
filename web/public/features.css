@@ -1,0 +1,83 @@
+a { color: var(--ink); }
+.overview .metric-value, .overview .metric-card > p,
+.temperature-card .big-value, .secondary article > div,
+.feature-grid.page-live > .feature-card > strong,
+.feature-grid.page-live > .feature-card > p,
+#rain-summary > div, #temperature-periods > article { text-align:center; }
+.temperature-card .big-value { justify-content:center; }
+.secondary article > div { flex:1; min-width:0; }
+.secondary article h2 { text-align:left; }
+.feature-grid.page-live .compass { margin-left:auto; margin-right:auto; }
+.metric-heading { display:flex; align-items:center; gap:10px; min-height:32px; }
+.metric-heading .metric-icon { flex:0 0 32px; }
+.metric-heading h2 { margin:0; min-width:0; }
+.secondary article { display:flex; align-items:flex-start; }
+.secondary-icon { flex-shrink:0; margin:0; line-height:1; }
+.help-button, #help-close, #date-close { border:0 !important; background:transparent !important; box-shadow:none !important; backdrop-filter:none !important; border-radius:50%; }
+.help-button:hover, #help-close:hover, #date-close:hover { color:#eff6ff; text-shadow:0 0 10px #60a5fa; }
+#date-dialog { width:min(480px,calc(100% - 32px)); box-sizing:border-box; max-height:85vh; overflow:auto; padding:24px; border:1px solid #42658b; border-radius:18px; background:#101b2a; color:#bfdbfe; }
+#date-dialog::backdrop { background:#0009; backdrop-filter:blur(5px); }
+#history-date { display:block; width:100%; box-sizing:border-box; margin:12px 0; padding:12px; background:#172b45; color:#bfdbfe; border:1px solid #42658b; border-radius:10px; font:inherit; color-scheme:dark; }
+#date-close { min-width:40px; min-height:40px; border:1px solid #42658b; border-radius:10px; background:#203650; color:#bfdbfe; cursor:pointer; }
+.day-picker button:disabled { opacity:.4; cursor:default; }
+.day-picker { display:flex; gap:8px; overflow-x:auto; padding:8px 0 14px; max-width:100%; }
+.day-picker button { flex:0 0 auto; border:1px solid var(--line); border-radius:12px; padding:12px 16px; background:var(--surface); color:var(--ink); cursor:pointer; }
+.day-picker button[aria-pressed="true"] { background:#193b65; border-color:#60a5fa; }
+.help-button { flex:0 0 36px; width:36px; height:36px; padding:0; border:1px solid #5588bb80; border-radius:50%; background:linear-gradient(135deg,#5798dc30,#162a4250); backdrop-filter:blur(12px); color:#bfdbfe; font-size:18px; cursor:pointer; transition:background .2s,box-shadow .2s; }
+.help-button:hover { background:#38669a80; box-shadow:0 0 14px #60a5fa40; }
+button:focus-visible { outline:2px solid #93c5fd; outline-offset:3px; }
+#help-dialog { width:min(560px,calc(100% - 48px)); max-height:80vh; overflow:auto; box-sizing:border-box; padding:24px; border:1px solid #42658b; border-radius:18px; background:#101b2af5; color:#bfdbfe; box-shadow:0 20px 80px #0009; }
+#help-dialog::backdrop { background:#0009; backdrop-filter:blur(5px); }
+#help-content { line-height:1.7; }
+#help-content p { margin:0 0 1em; text-align:left; }
+#help-content h3 { margin:1.5em 0 .65em; font-size:1rem; }
+#help-content ul { margin:0; padding-left:1.3em; }
+#help-content li + li { margin-top:.4em; }
+#help-content > :last-child { margin-bottom:0; }
+#help-close { min-width:40px; min-height:40px; background:#203650; border:1px solid #42658b; color:#bfdbfe; border-radius:10px; cursor:pointer; }
+#sun-countdown { font-variant-numeric:tabular-nums; font-weight:600; }
+.shell main { min-width:0; }
+.section-heading h2 { min-width:0; }
+.astronomy-days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 20px 0; }
+.astronomy-day { background: var(--sidebar); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+.astronomy-day h3 { font-size: 14px; font-weight: 600; margin: 0 0 20px; }
+.astronomy-day dd { font-weight: 600; }
+@media(max-width:700px) { .astronomy-days { grid-template-columns: 1fr; } }
+.brand.station-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding-left: 14px; border-left: 3px solid var(--accent); line-height: 1; text-decoration: none; }
+.station-brand-label { font-size: 10px; font-weight: 600; letter-spacing: 4.5px; color: var(--muted); }
+.station-brand-name { font-size: 34px; font-weight: 700; letter-spacing: -1.4px; color: var(--ink); }
+.station-brand-dot { color: var(--accent); }
+.station-brand:hover .station-brand-name { color: #bfdbfe; }
+.uv-symbol { font-size: 15px; font-weight: 650; letter-spacing: 1px; line-height: 30px; }
+@media(max-width:1150px) { .station-brand-name { font-size: 29px; } }
+@media(max-width:850px) { .brand.station-brand { gap: 4px; padding-left: 10px; } .station-brand-label { font-size: 8px; letter-spacing: 3.5px; } .station-brand-name { font-size: 27px; } }
+.app-nav { display: grid; gap: 8px; margin-top: 35px; }
+.app-nav a { padding: 12px; border: 1px solid transparent; border-radius: 8px; text-decoration: none; font-size: 12px; }
+.app-nav a:hover, .app-nav a.active { background: #172b45; border-color: #2c5080; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 20px 0; }
+.feature-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+.feature-grid .feature-card { margin-bottom: 0; }
+.feature-card h2 { margin-bottom: 15px; }
+.feature-card:has(.help-button) { position:relative; }
+.feature-card .section-heading:has(.help-button) { padding-right:36px; min-height:36px; align-items:flex-start; }
+.feature-card .section-heading .help-button { position:absolute; top:10px; right:10px; }
+.feature-card .section-heading:has(.help-button) h2 { margin-top:0; }
+.feature-card strong { display: block; font-size: 25px; font-weight: 500; margin: 12px 0; }
+.feature-card p { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.feature-card li { margin: 12px 0; line-height: 1.6; }
+.feature-grid h3 { font-size: 12px; font-weight: 500; }
+.compass { position: relative; width: 66px; height: 66px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; margin-top: 15px; }
+.compass span { position: absolute; top: 2px; font-size: 10px; }
+.compass b { font-size: 33px; display: inline-block; color: var(--chart-line); }
+.chart-controls { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+.chart-controls label { font-size: 10px; color: var(--muted); }
+.chart-controls select { margin-top: 5px; }
+.button { background: #183659; border: 1px solid #35639a; border-radius: 7px; padding: 11px 17px; color: var(--ink); text-decoration: none; cursor: pointer; font: inherit; display: inline-block; }
+.button:hover { background: #234b79; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.settings-form label { display: block; margin-bottom: 10px; font-size: 12px; }
+.settings-form input:not([type=submit]) { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--sidebar); color: var(--ink); font: inherit; }
+.diagnostics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.diagnostics dt { color: var(--muted); }.diagnostics dd { margin: 0; overflow-wrap: anywhere; }
+@media(max-width:850px) { .sidebar { flex-wrap: wrap; } .app-nav { display: flex; flex-wrap: wrap; order: 3; width: 100%; margin: 0; gap: 3px; } .app-nav a { padding: 9px; font-size: 11px; } .chart-card .section-heading { flex-wrap: wrap; } }
+@media(max-width:500px) { .form-grid { grid-template-columns: 1fr; } .feature-card { padding: 18px; } .feature-grid { grid-template-columns: 1fr 1fr; gap: 10px; } .feature-grid .feature-card { padding: 14px; } .feature-card strong { font-size: 21px; } .feature-card h2 { font-size: 13px; } .chart-controls { gap: 8px; } .chart-controls select { padding: 8px; } .diagnostics { grid-template-columns: 1fr; gap: 5px; } .diagnostics dd { margin-bottom: 10px; } }
